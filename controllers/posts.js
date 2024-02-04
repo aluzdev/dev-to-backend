@@ -1,7 +1,6 @@
 const postModel = require("../models/posts");
 
 module.exports.getPosts = async (req, res) => {
-  //   const posts = await postModel.find();
-  //   res.send(posts);
-  res.send("haaaiii :)");
+  const posts = await postModel.find();
+  res.send(posts);
 };

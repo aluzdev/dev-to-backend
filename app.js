@@ -13,6 +13,6 @@ mongoose
   .then(() => console.log("conected to MongoDB"))
   .catch((err) => console.error(err));
 
-app.use(postRoutes);
+app.use("/posts", postRoutes);
 
 app.listen(port, () => console.log(`listening on port ${port}`));
