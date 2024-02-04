@@ -1,16 +1,20 @@
 const mongoose = require("mongoose");
 
-const urlValidator = {
-  validator: (v) => {
-    const urlRegex = /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/;
-    return urlRegex.test(v);
-  },
-  message: "Invalid URL format",
-};
+// const urlValidator = {
+//   validator: (v) => {
+//     const urlRegex = /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/;
+//     return urlRegex.test(v);
+//   },
+//   message: "Invalid URL format",
+// };
 
 const postSchema = new mongoose.Schema({
-  post: {
-    author: String,
+  
+    author:
+    {
+      type: String,
+      require: true
+    },
     title: String,
     content: String,
     creationDate: Date,
@@ -19,13 +23,16 @@ const postSchema = new mongoose.Schema({
     tags: String,
     avatar: {
       type: String,
-      validate: urlValidator,
+      // validate: urlValidator,
     },
     image: {
       type: String,
-      validate: urlValidator,
+      // validate: urlValidator,
     },
-  },
+  
 });
 
-module.exports = mongoose.model("Post", postSchema);
+// module.exports = mongoose.model("Post", postSchema);
+const Post = mongoose.model("posts", postSchema)
+
+module.exports = Post
