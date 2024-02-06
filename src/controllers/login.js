@@ -10,9 +10,11 @@ const userLogin = async (req, res) => {
     }
     if (user.password != credential.password) {
       res.status(401).send({ msg: "invalid password" });
+    } else {
+      const token = await createJWT({ _id: user._id });
+      console.log({ token });
+      res.send({ msg: "login user", data: token });
     }
-    const token = createJWT({ _id: user._id });
-    res.send({ msg: "User logged in successfuly!", data: token });
   } catch (err) {
     res.status(400).send({ msg: "invalid login", error: err });
   }
