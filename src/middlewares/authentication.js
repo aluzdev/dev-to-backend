@@ -34,8 +34,3 @@ module.exports = {
   createJWT,
   verifyJWT,
 };
-
-module.exports = {
-  createJWT,
-  verifyJWT,
-};
