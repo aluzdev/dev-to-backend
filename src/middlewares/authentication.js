@@ -11,22 +11,29 @@ function verifyJWT(req, res, next) {
   const dateNow = new Date();
 
   if (!token) {
-    res.status(401).send({ msg: "login is required" });
+    return res.status(401).json({ msg: "login is required" });
   }
 
-  token = token.split(" ")[1];
+  token = token?.split(" ")[1];
   jwt.verify(token, JWT_SIGN, async (err, decode) => {
     if (err) {
-      res.status(401).send({ msg: "token invalid" });
+      return res.status(401).json({ msg: "token invalid" });
     }
     if (decode.exp < dateNow.getDate() / 1000) {
-      res.status(401).send({ msg: "session expired" });
-    } else {
-      req.user = await User.findById(decode._id);
-      next();
+      return res.status(401).json({ msg: "session expired" });
     }
+
+    // Set the user in the request object
+    req.user = await User.findById(decode._id);
+
+    next(); // Continue to the next middleware or route handler
   });
 }
+
+module.exports = {
+  createJWT,
+  verifyJWT,
+};
 
 module.exports = {
   createJWT,
