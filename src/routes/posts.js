@@ -1,10 +1,12 @@
-const { Router } = require("express");
-const { getPosts, createPost } = require("../controllers/posts");
+const express = require("express");
+const router = express.Router();
+const Post = require("../models/posts");
 
-const router = Router(); // Use express.Router() to create a router instance
+const { getPosts, createPost, getPostById } = require("../controllers/posts");
 
 router.get("/get", getPosts);
 router.post("/create", createPost);
+router.get("/get/:id", getPostById);
 //TODO: add .put and .delete
 
 module.exports = router;
