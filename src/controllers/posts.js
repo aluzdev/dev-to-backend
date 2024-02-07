@@ -21,6 +21,24 @@ module.exports = {
     }
   },
 
+  deletePostById: async (req, res) => {
+    const postId = req.params.id;
+    try {
+      const post = await Post.findByIdAndDelete(postId);
+
+      if (!post) {
+        return res.status(404).send({ msg: 'Post not found' });
+      }
+
+      console.log(`deleted post sucesfully:`, post);
+      res.status(204).send({ msg: 'deleted post sucesfully', post });
+    } catch (err) {
+
+      console.error(err);
+      res.status(500).send({ error: err, msg: 'Could not deletete post!' });
+    }
+  },
+
   getPostById: async (req, res) => {
     const { id } = req.params;
     try {
