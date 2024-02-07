@@ -30,5 +30,20 @@ module.exports = {
       res.status(400).send({ msg: "can not get user", error: error });
     }
   },
+
+  putPost: async (req, res) => {
+    try {
+      const find = await Post.findById(req.params.id);
+      if (!find) {
+        return res.status(404).json({ message: "Post not found" })
+      } else {
+        const respPet = await Post.findByIdAndUpdate(req.params.id, req.body, { new: true })
+        res.status(202).send(respPet)
+      }
+    } catch (error) {
+      res.status(400).send(error)
+    }
+  },
+
 };
 //TODO: add update and delete controllers
