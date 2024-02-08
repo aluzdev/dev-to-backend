@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const { postSchema } = require("./posts");
 
 const userSchema = new mongoose.Schema({
   email: {
@@ -14,6 +15,7 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  savedPost: [postSchema], // Usar el esquema de posts para definir los posts guardados
 });
 
 const User = mongoose.model("users", userSchema);
