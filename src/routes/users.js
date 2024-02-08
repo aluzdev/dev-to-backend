@@ -7,14 +7,16 @@ const {
   createUser,
   getUserById,
   userLogin,
+  deleteUserById,
 } = require("../controllers/users");
 
 router.post("/login", userLogin);
 
 router.use(verifyJWT); // ESTE MIDDLEWARE ES VALIDO PARA TODOS LOS ENDPOINTS QUE ESTAN DEBAJO
 
-router.get("/get", getUsers);
-router.post("/create", createUser);
-router.get("/get/:id", getUserById);
+router.get("/", getUsers);
+router.post("/", createUser);
+router.get("/:id", getUserById);
+router.delete("/:id", deleteUserById);
 
 module.exports = router;

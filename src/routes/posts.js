@@ -4,10 +4,10 @@ const Post = require("../models/posts");
 
 const { getPosts, createPost, getPostById, deletePostById } = require("../controllers/posts");
 
-router.get("/get", getPosts);
-router.post("/create", createPost);
-router.get("/get/:id", getPostById);
-router.get("/delete/:id", deletePostById);
+router.get("/", getPosts);
+router.post("/", createPost);
+router.get("/:id", getPostById);
+router.delete("/:id", deletePostById);
 
 //TODO: add .put and .delete
 

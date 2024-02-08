@@ -22,20 +22,17 @@ module.exports = {
   },
 
   deletePostById: async (req, res) => {
-    const postId = req.params.id;
+    const { id } = req.params;
     try {
-      const post = await Post.findByIdAndDelete(postId);
+      const post = await Post.findByIdAndDelete(id);
 
       if (!post) {
-        return res.status(404).send({ msg: 'Post not found' });
+        return res.status(404).send({ msg: "Post not found" });
       }
-
       console.log(`deleted post sucesfully:`, post);
-      res.status(204).send({ msg: 'deleted post sucesfully', post });
+      res.status(200).send({ msg: "deleted post sucesfully" });
     } catch (err) {
-
-      console.error(err);
-      res.status(500).send({ error: err, msg: 'Could not deletete post!' });
+      res.status(500).send({ error: err, msg: "Could not deletete post!" });
     }
   },
 
@@ -43,6 +40,9 @@ module.exports = {
     const { id } = req.params;
     try {
       const post = await Post.findById(id);
+      if (!post) {
+        return res.status(404).send({ msg: "Post not found" });
+      }
       res.send({ msg: "user", data: post });
     } catch (error) {
       res.status(400).send({ msg: "can not get user", error: error });
