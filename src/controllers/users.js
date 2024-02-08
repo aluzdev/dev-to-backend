@@ -14,7 +14,9 @@ module.exports = {
 
   createUser: async (req, res) => {
     try {
-      const data = await User.create(req.body);
+      let newUser = req.body;
+      newUser.password = await User.encryptPassword(newUser.password);
+      const data = await User.create(newUser);
       await data.save();
 
       console.log(`User saved successfuly:`, data);
@@ -44,12 +46,16 @@ module.exports = {
       if (!user) {
         res.status(401).send({ msg: "user not found" });
       }
-      if (user.password != credential.password) {
+      const isCorrectPassword = await User.isValidPassword(
+        credential.password,
+        user.password
+      );
+      if (!isCorrectPassword) {
         res.status(401).send({ msg: "invalid password" });
       } else {
         const token = await createJWT({ _id: user._id });
         console.log({ token });
-        res.send({ msg: "login user", data: token });
+        res.send({ msg: "user succesfuly logged in", data: token });
       }
     } catch (err) {
       res.status(400).send({ msg: "invalid login", error: err });
