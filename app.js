@@ -25,17 +25,15 @@ app.use("/users", userRoutes);
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
 
-// Función para seedear usuarios
-const seedUsers = async () => {
-  try {
-    // Eliminar todos los usuarios existentes
-    await User.deleteMany({});
-    // Insertar los nuevos usuarios
-    await User.insertMany(userData);
-    console.log("Users seeded successfully");
-  } catch (error) {
-    console.error("Error seeding users:", error);
-  }
-};
-
-seedUsers(); // Llamada a la función después de definirla
+// // Función para seedear usuarios
+// const seedUsers = async () => {
+//   try {
+//     // Eliminar todos los usuarios existentes
+//     await User.deleteMany({});
+//     // Insertar los nuevos usuarios
+//     await User.insertMany(userData);
+//     console.log("Users seeded successfully");
+//   } catch (error) {
+//     console.error("Error seeding users:", error);
+//   }
+// };
