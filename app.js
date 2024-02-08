@@ -4,7 +4,7 @@ require("dotenv").config();
 const postRoutes = require("./src/routes/posts");
 const userRoutes = require("./src/routes/users");
 const User = require("./src/models/users"); // Importar el modelo de usuario
-const userData = require("./src/seed/seed"); // Importar los datos de usuario para seed
+const userData = require("./src/seed/seed.js"); // Importar los datos de usuario para seed
 
 const app = express();
 const port = process.env.PORT || 5001;
@@ -29,7 +29,6 @@ app.listen(port, () => console.log(`Listening on port ${port}`));
 const seedUsers = async () => {
   try {
     // Eliminar todos los usuarios existentes
-    console.log(userData);
     await User.deleteMany({});
     // Insertar los nuevos usuarios
     await User.insertMany(userData);
@@ -38,3 +37,5 @@ const seedUsers = async () => {
     console.error("Error seeding users:", error);
   }
 };
+
+seedUsers(); // Llamada a la función después de definirla
