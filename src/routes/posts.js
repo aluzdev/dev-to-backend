@@ -8,13 +8,13 @@ const {
   createPost,
   getPostById,
   putPost,
+  deletePostById,
 } = require("../controllers/posts");
 
 router.get("/", getPosts);
 router.post("/", verifyJWT, createPost);
 router.get("/:id", getPostById);
 router.put("/:id", verifyJWT, putPost);
-
-//TODO: add .put and .delete
+router.delete("/:id", deletePostById);
 
 module.exports = router;
