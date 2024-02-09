@@ -64,8 +64,10 @@ module.exports = {
       if (!user) {
         return res.status(404).send({ msg: "User not found" });
       }
+      else{
       console.log(`deleted user sucesfully:`, user);
       res.status(200).send({ msg: "deleted user sucesfully" });
+      }
     } catch (err) {
       res.status(500).send({ error: err, msg: "Could not deletete user!" });
     }
