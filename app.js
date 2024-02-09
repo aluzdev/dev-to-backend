@@ -11,9 +11,10 @@ const port = process.env.PORT | 5002;
 app.use(express.json());
 
 app.use(cors({
-  origin: `http://127.0.0.1:${process.env.PORT_FRONT}`,
+  origin: `http://127.0.0.1:5500`,
   credentials:true
 }));
+console.log(port)
 
 // app.use(cors())
 
