@@ -25,7 +25,12 @@ module.exports = {
     const { id } = req.params;
     try {
       const post = await Post.findById(id);
+      if (!post) {
+        return res.status(404).send({ msg: "Post not found" });
+      }
+      else{
       res.send({ msg: "user", data: post });
+      }
     } catch (error) {
       res.status(400).send({ msg: "can not get user", error: error });
     }
@@ -45,5 +50,21 @@ module.exports = {
     }
   },
 
+  deletePostById: async (req, res) => {
+    const { id } = req.params;
+    try {
+      const post = await Post.findByIdAndDelete(id);
+
+      if (!post) {
+        return res.status(404).send({ msg: "Post not found" });
+      }
+      else {
+      console.log(`deleted post sucesfully:`, post);
+      res.status(200).send({ msg: "deleted post sucesfully" });
+      }
+    } catch (err) {
+      res.status(500).send({ error: err, msg: "Could not deletete post!" });
+    }
+  }
 };
-//TODO: add update and delete controllers
+//TODO: add update controllers
