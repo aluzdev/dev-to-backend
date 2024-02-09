@@ -3,21 +3,20 @@ const mongoose = require("mongoose");
 require("dotenv").config();
 const postRoutes = require("./src/routes/posts");
 const userRoutes = require("./src/routes/users");
-const cors = require("cors")
+const cors = require("cors");
 
 const app = express();
-const port = process.env.PORT | 5002;
+const port = 1337;
 
 app.use(express.json());
 
-app.use(cors({
-  origin: `http://127.0.0.1:5500`,
-  credentials:true
-}));
-console.log(port)
-
-// app.use(cors())
-
+app.use(
+  cors({
+    origin: "http://localhost:5501",
+    credentials: true,
+    optionsSuccessStatus: 200, // Some legacy browsers (IE11, various SmartTVs) choke on 204
+  })
+);
 
 mongoose
   .connect(process.env.ALUZ_URI)
@@ -27,4 +26,4 @@ mongoose
 app.use("/posts", postRoutes);
 app.use("/users", userRoutes);
 
-app.listen(port, () => console.log(`listening on port ${port}`));
+app.listen(port, () => console.log(`listening on  http://localhost:${port}`));
