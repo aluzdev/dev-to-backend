@@ -22,7 +22,9 @@ const userSchema = new mongoose.Schema(
     statics: {
       encryptPassword: async (password) => {
         const salt = await bcrypt.genSalt(15);
-        return await bcrypt.hash(password, salt);
+        if (password && salt) {
+          return await bcrypt.hash(password, salt);
+        }
       },
       isValidPassword: async (password, hash) => {
         return await bcrypt.compare(password, hash);

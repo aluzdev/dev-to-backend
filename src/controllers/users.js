@@ -15,6 +15,10 @@ module.exports = {
   createUser: async (req, res) => {
     try {
       let newUser = req.body;
+      const user = await User.findOne({ email: newUser.email });
+      if (user) {
+        return res.status(201).send(`user already exists`);
+      }
       newUser.password = await User.encryptPassword(newUser.password);
       const data = await User.create(newUser);
       await data.save();
@@ -25,7 +29,7 @@ module.exports = {
       console.log(data);
     } catch (err) {
       console.error(err);
-      res.status(400).send({ error: err, msg: "Could not create post!" });
+      res.status(400).send({ error: err, msg: "Could not create user!" });
     }
   },
 
@@ -33,7 +37,11 @@ module.exports = {
     const { id } = req.params;
     try {
       const user = await User.findById(id);
-      res.send({ msg: "user", data: user });
+      if (!user) {
+        res.status(401).send({ msg: "user not found" });
+      } else {
+        res.send({ msg: "user", data: user });
+      }
     } catch (error) {
       res.status(400).send({ msg: "can not get user", error: error });
     }
@@ -69,13 +77,12 @@ module.exports = {
 
       if (!user) {
         return res.status(404).send({ msg: "User not found" });
-      }
-      else{
-      console.log(`deleted user sucesfully:`, user);
-      res.status(200).send({ msg: "deleted user sucesfully" });
+      } else {
+        console.log(`deleted user sucesfully:`, user);
+        res.status(200).send({ msg: "deleted user sucesfully" });
       }
     } catch (err) {
       res.status(500).send({ error: err, msg: "Could not deletete user!" });
     }
-  }
+  },
 };
