@@ -48,6 +48,13 @@ module.exports = {
   },
 
   userLogin: async (req, res) => {
+    //qué queremos lograr?
+    //para qué queremos el login del backend?
+    //para que nos envie en el response el token al front
+    //cómo le vamos a hacer para regresar el token a front?
+    //lo metemos al response
+    //fuga a encontrar dónde se hace el token
+    //agregarlo al response
     try {
       const credential = req.body;
       const user = await User.findOne({ email: credential.email });
@@ -62,6 +69,7 @@ module.exports = {
         res.status(401).send({ msg: "invalid password" });
       } else {
         const token = await createJWT({ _id: user._id });
+
         console.log({ token });
         res.send({ msg: "user succesfuly logged in", data: token });
       }

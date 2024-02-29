@@ -10,13 +10,7 @@ const port = 1337;
 
 app.use(express.json());
 
-app.use(
-  cors({
-    origin: "http://localhost:5501",
-    credentials: true,
-    optionsSuccessStatus: 200, // Some legacy browsers (IE11, various SmartTVs) choke on 204
-  })
-);
+app.use(cors());
 
 mongoose
   .connect(process.env.ALUZ_URI)

@@ -12,7 +12,7 @@ const {
 } = require("../controllers/posts");
 
 router.get("/", getPosts);
-router.post("/", createPost);
+router.post("/", verifyJWT, createPost);
 router.get("/:id", getPostById);
 router.put("/:id", verifyJWT, putPost);
 router.delete("/:id", deletePostById);
