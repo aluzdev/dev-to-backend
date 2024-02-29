@@ -8,13 +8,15 @@ async function createJWT(data) {
 
 function verifyJWT(req, res, next) {
   let token = req.headers.authorization;
+  console.log(token);
   const dateNow = new Date();
 
   if (!token) {
     return res.status(401).json({ msg: "login is required" });
   }
 
-  token = token?.split(" ")[1];
+  // token = token?.split(" ")[1];
+  console.log(token);
   jwt.verify(token, JWT_SIGN, async (err, decode) => {
     if (err) {
       return res.status(401).json({ msg: "token invalid" });
