@@ -12,18 +12,10 @@ const userSchema = new mongoose.Schema(
         "Ingresa un correo valido: ejemplo juan.perez@gmail.com",
       ],
     },
-    name: {
-      type: String,
-      required: true,
-    },
     password: {
       type: String,
       required: true,
     },
-    image: {
-      type: String,
-      required: true
-    }
   },
   {
     timestamps: true,
