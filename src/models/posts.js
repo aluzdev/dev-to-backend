@@ -11,15 +11,15 @@ const mongoose = require("mongoose");
 const postSchema = new mongoose.Schema(
   {
     author: {
-      type: String,
-      require: true,
-      // type: mongoose.Schema.Types.ObjectId,
-      // ref: "user",
+      // type: String,
+      // require: true,
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "user",
     },
-    avatar: {
-      type: String,
-      // validate: urlValidator,
-    },
+    // avatar: {
+    //   type: String,
+    //   // validate: urlValidator,
+    // },
     title: {
       type: String,
       require: true,
@@ -30,18 +30,23 @@ const postSchema = new mongoose.Schema(
     },
     // creationDate: Date,
     rating: {
-      type: String,
+      type: Number,
     },
     relevant: {
       type: Boolean,
     },
+    reactions: {
+      type: Number,
+    },
+    comments: {
+      type: Number,
+    },
     tags: {
       type: [],
     },
-    image: {
-      type: String,
-      // validate: urlValidator,
-    },
+    coverImage: {
+      type: String
+    }
   },
 
   { timestamps: { createdAt: true, updatedAt: true } }

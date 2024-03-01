@@ -1,3 +1,4 @@
+const { set } = require("mongoose");
 const { createJWT } = require("../middlewares/authentication");
 const User = require("../models/users");
 
@@ -27,6 +28,8 @@ module.exports = {
       res.status(201).send(data);
 
       console.log(data);
+
+      
     } catch (err) {
       console.error(err);
       res.status(400).send({ error: err, msg: "Could not create user!" });
@@ -56,6 +59,7 @@ module.exports = {
     //fuga a encontrar dónde se hace el token
     //agregarlo al response
     try {
+
       const credential = req.body;
       const user = await User.findOne({ email: credential.email });
       if (!user) {
@@ -65,6 +69,8 @@ module.exports = {
         credential.password,
         user.password
       );
+      
+
       if (!isCorrectPassword) {
         res.status(401).send({ msg: "invalid password" });
       } else {
@@ -72,6 +78,7 @@ module.exports = {
 
         console.log({ token });
         res.send({ msg: "user succesfuly logged in", data: token });
+        console.log(data,"datatoken")
       }
     } catch (err) {
       res.status(400).send({ msg: "invalid login", error: err });
