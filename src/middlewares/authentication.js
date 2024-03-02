@@ -2,21 +2,22 @@ const jwt = require("jsonwebtoken");
 const JWT_SIGN = process.env.JWT_SIGN;
 const User = require("../models/users");
 
-async function createJWT(data) {
-  return jwt.sign(data, JWT_SIGN, { expiresIn: "7d" });
+async function createJWT(payload) {
+  console.log({ payload });
+  return jwt.sign(payload, JWT_SIGN, { expiresIn: "1w" });
 }
 
 function verifyJWT(req, res, next) {
   let token = req.headers.authorization;
-  console.log(token);
+  console.log("ESTO ES EL TOKEN CRUDOTE:", token);
   const dateNow = new Date();
 
   if (!token) {
     return res.status(401).json({ msg: "login is required" });
   }
 
-  // token = token?.split(" ")[1];
-  console.log(token);
+  token = token?.split(" ")[1] || token;
+  console.log({ token });
   jwt.verify(token, JWT_SIGN, async (err, decode) => {
     if (err) {
       return res.status(401).json({ msg: "token invalid" });

@@ -28,8 +28,6 @@ module.exports = {
       res.status(201).send(data);
 
       console.log(data);
-
-      
     } catch (err) {
       console.error(err);
       res.status(400).send({ error: err, msg: "Could not create user!" });
@@ -59,29 +57,27 @@ module.exports = {
     //fuga a encontrar dónde se hace el token
     //agregarlo al response
     try {
-
-      const credential = req.body;
-      const user = await User.findOne({ email: credential.email });
+      const { email, password } = req.body;
+      const user = await User.findOne({ email });
       if (!user) {
-        res.status(401).send({ msg: "user not found" });
+        return res.status(401).send({ msg: "user not found" });
       }
       const isCorrectPassword = await User.isValidPassword(
-        credential.password,
+        password,
         user.password
       );
-      
 
       if (!isCorrectPassword) {
-        res.status(401).send({ msg: "invalid password" });
-      } else {
-        const token = await createJWT({ _id: user._id });
-
-        console.log({ token });
-        res.send({ msg: "user succesfuly logged in", data: token });
-        console.log(data,"datatoken")
+        return res.status(401).send({ msg: "invalid password" });
       }
+
+      const token = await createJWT({ _id: user._id });
+
+      console.log({ token });
+      return res.send({ msg: "user succesfuly logged in", data: token });
+      console.log(data, "datatoken");
     } catch (err) {
-      res.status(400).send({ msg: "invalid login", error: err });
+      return res.status(400).send({ msg: "invalid login", error: err });
     }
   },
 
