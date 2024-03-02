@@ -33,6 +33,9 @@ const postSchema = new mongoose.Schema(
     coverImage: {
       type: String,
     },
+    readingTime: {
+      type: Number,
+    },
   },
 
   { timestamps: { createdAt: true, updatedAt: true } }
