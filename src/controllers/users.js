@@ -73,9 +73,12 @@ module.exports = {
 
       const token = await createJWT({ _id: user._id });
 
-      console.log({ token });
-      return res.send({ msg: "user succesfuly logged in", data: token });
-      console.log(data, "datatoken");
+      return res.send({
+        msg: "user succesfuly logged in",
+        data: token,
+        user: user._id,
+      });
+      // console.log(data, "datatoken");
     } catch (err) {
       return res.status(400).send({ msg: "invalid login", error: err });
     }
