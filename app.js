@@ -17,11 +17,10 @@ mongoose
   .then(() => console.log("conected to MongoDB"))
   .catch((err) => console.error(err));
 
-app.use("/", (req, res) =>
-  res.json({ success: true, message: "Abandon all hope, ye who enter here." })
-);
-
 app.use("/posts", postRoutes);
 app.use("/users", userRoutes);
 
+app.get("/", (req, res) =>
+  res.json({ success: true, message: "Abandon all hope, ye who enter here." })
+);
 app.listen(port, () => console.log(`listening on  http://localhost:${port}`));

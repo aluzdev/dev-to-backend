@@ -3,7 +3,7 @@ const Post = require("../models/posts");
 
 module.exports = {
   getPosts: async (req, res) => {
-    const posts = await Post.find();
+    const posts = await Post.find().populate("author");
     res.send(posts);
   },
 
