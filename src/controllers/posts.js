@@ -1,3 +1,4 @@
+const { response } = require("express");
 const Post = require("../models/posts");
 
 module.exports = {
@@ -24,16 +25,20 @@ module.exports = {
   },
 
   getPostById: async (req, res) => {
-    const { id } = req.params;
     try {
-      const post = await Post.findById(id);
-      if (!post) {
-        return res.status(404).send({ msg: "Post not found" });
-      } else {
-        res.send({ msg: "user", data: post });
-      }
-    } catch (error) {
-      res.status(400).send({ msg: "can not get user", error: error });
+      const { id } = req.params;
+      const post = await Post.findById(id).populate("author");
+      res.json({
+        success: true,
+        message: `Post ${id}`,
+        data: { post },
+      });
+    } catch (err) {
+      res.status(err.status || 500);
+      res.json({
+        success: false,
+        error: err.message,
+      });
     }
   },
 
