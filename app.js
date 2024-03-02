@@ -17,6 +17,10 @@ mongoose
   .then(() => console.log("conected to MongoDB"))
   .catch((err) => console.error(err));
 
+app.use("/", (req, res) =>
+  res.json({ success: true, message: "Abandon all hope, ye who enter here." })
+);
+
 app.use("/posts", postRoutes);
 app.use("/users", userRoutes);
 
