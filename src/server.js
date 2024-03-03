@@ -12,7 +12,11 @@ server.use("/posts", postRoutes);
 server.use("/users", userRoutes);
 
 server.get("/", (req, res) =>
-  res.json({ success: true, message: "Abandon all hope, ye who enter here." })
+  res.json({
+    success: true,
+    port: process.env.PORT,
+    message: "Abandon all hope, ye who enter here.",
+  })
 );
 
 module.exports = server;
