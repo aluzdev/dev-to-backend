@@ -29,7 +29,7 @@ const userSchema = new mongoose.Schema(
     timestamps: true,
     statics: {
       encryptPassword: async (password) => {
-        const salt = await bcrypt.genSalt(15);
+        const salt = await bcrypt.genSalt(5);
         if (password && salt) {
           return await bcrypt.hash(password, salt);
         }
