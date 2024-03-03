@@ -3,10 +3,13 @@ const mongoose = require("mongoose");
 require("dotenv").config();
 const postRoutes = require("./src/routes/posts");
 const userRoutes = require("./src/routes/users");
+const connect = require("./src/database");
+
 const cors = require("cors");
 
 const app = express();
-const port = 1337;
+
+const port = process.env.PORT || 3000;
 
 app.use(express.json());
 
